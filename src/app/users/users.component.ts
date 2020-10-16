@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -16,7 +16,6 @@ export class UsersComponent implements OnInit {
   displayedColumns: string[] = ['id', 'name', 'username', 'email'];
   users$ = this.userService.users$;
   dataSource: MatTableDataSource<User>;
-  users: User[];
 
   constructor(private userService: UserService) { }
 
