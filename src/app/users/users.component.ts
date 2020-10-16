@@ -19,11 +19,19 @@ export class UsersComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.users$.subscribe(users => {
       this.dataSource = new MatTableDataSource(users);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+
+    this.dataSource.filterPredicate = function(data, filter: string): boolean {
+      return data.name.toLowerCase().includes(filter) || data.name.toLowerCase().includes(filter) || data.email.includes(filter);
+    };
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

@@ -4,7 +4,7 @@
     <mat-card-subtitle>
       <mat-form-field>
         <mat-label>Search</mat-label>
-        <input matInput>
+        <input matInput (keyup)="applyFilter($event.target.value)">
       </mat-form-field>
     </mat-card-subtitle>
     <mat-card-content>
