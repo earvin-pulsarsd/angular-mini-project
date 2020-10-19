@@ -25,10 +25,7 @@ export class UsersComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-
-    this.dataSource.filterPredicate = function(data, filter: string): boolean {
-      return data.name.toLowerCase().includes(filter) || data.name.toLowerCase().includes(filter) || data.email.includes(filter);
-    };
+    
   }
 
   applyFilter(filterValue: string) {
