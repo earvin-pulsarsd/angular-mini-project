@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../user.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-details',
@@ -7,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDetailsComponent implements OnInit {
 
-  constructor() { }
+  id = +this.route.snapshot.paramMap.get('id');
+  user = this.userService.users$.pipe(map(users => users.find(user => user.id === this.id)));
+
+  constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
