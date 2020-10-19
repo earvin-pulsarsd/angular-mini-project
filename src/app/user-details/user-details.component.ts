@@ -18,4 +18,8 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmit(value: any) {
+    console.log(value)
+  }
+
 }
