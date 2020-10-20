@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { FormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,10 @@ import { MatListModule } from '@angular/material/list';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    MatListModule
+    MatListModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCs1LwyKvn1SEMtqrbrk3pM9w8mzCv7Y3w'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

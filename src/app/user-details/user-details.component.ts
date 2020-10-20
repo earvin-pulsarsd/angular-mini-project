@@ -10,12 +10,14 @@ import { map } from 'rxjs/operators';
 })
 export class UserDetailsComponent implements OnInit {
 
-  id = +this.route.snapshot.paramMap.get('id');;
+  id = +this.route.snapshot.paramMap.get('id');
   users = this.userService.users$;
   user = this.userService.users$.pipe(map(users => users.find(user => user.id === this.id)));
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.id = +this.route.snapshot.paramMap.get('id');
+    this.user = this.userService.users$.pipe(map(users => users.find(user => user.id === this.id)));
   }
 }
