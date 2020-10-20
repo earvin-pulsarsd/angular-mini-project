@@ -1,7 +1,7 @@
 <div class="container">
     <div class="user-list">
         <mat-selection-list *ngIf="users | async as users" [multiple]="false">
-            <mat-list-option *ngFor="let user of users" routerLink='/user/{{user.id}}'>{{user.name}}</mat-list-option>
+            <mat-list-option *ngFor="let user of users" routerLink='/user/{{user.id}}' (click)="updateForm(user.id)">{{user.name}}</mat-list-option>
         </mat-selection-list>
     </div>
     <div *ngIf="user | async as user" class="user-form">
@@ -54,9 +54,6 @@
                                 <mat-label>Zipcode</mat-label>
                                 <input matInput name="zipcode" type="text" [(ngModel)]="user.address.zipcode">
                             </mat-form-field>
-                            <agm-map [latitude]="user.address.geo.lat" [longitude]="user.address.geo.lng">
-                                <agm-marker [latitude]="user.address.geo.lat" [longitude]="user.address.geo.lng"></agm-marker>
-                            </agm-map>
                         </div>
                         <mat-form-field appearance="outline">
                             <mat-label>Phone</mat-label>
