@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { FormsModule } from '@angular/forms';
 import { MatListModule } from '@angular/material/list';
+import { NguiMapModule } from '@ngui/map';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,10 @@ import { MatListModule } from '@angular/material/list';
     MatFormFieldModule,
     MatInputModule,
     FormsModule,
-    MatListModule
+    MatListModule,
+    NguiMapModule.forRoot({
+      apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyCjUEtuv-RgVu6pQ61uvjnZny0JdPxgIjo'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

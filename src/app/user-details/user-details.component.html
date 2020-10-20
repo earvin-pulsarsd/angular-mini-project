@@ -54,6 +54,7 @@
                                 <mat-label>Zipcode</mat-label>
                                 <input matInput name="zipcode" type="text" [(ngModel)]="user.address.zipcode">
                             </mat-form-field>
+                            <ngui-map zoom="4" center="user.address.geo.lat, user.address.geo.lng" ></ngui-map>
                         </div>
                         <mat-form-field appearance="outline">
                             <mat-label>Phone</mat-label>
