@@ -8,6 +8,7 @@ import { Post } from '../post';
 import { map } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-details',
@@ -26,28 +27,37 @@ export class UserDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   posts: Observable<Post[]>;
   private map;
 
-  constructor(private userService: UserService, private route: ActivatedRoute) { }
+  constructor(private userService: UserService, 
+              private route: ActivatedRoute,
+              private snackBar: MatSnackBar) { }
   
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.users = this.userService.users$;
     this.posts = this.userService.posts$.pipe(map(posts => posts.filter(posts => posts.userId === this.id)));
-  }
-  ngAfterViewInit(): void {
     this.initMap();
     this.updateForm(this.id);
+  }
+  ngAfterViewInit(): void {
+    
   }
   ngOnDestroy(): void {
   }
   updateForm(id: number): void {
     this.user = this.userService.getUser(id);
     this.posts = this.userService.posts$.pipe(map(posts => posts.filter(posts => posts.userId === id)));
-    this.user.subscribe(user => {this.map.setView([user.address.geo.lat, user.address.geo.lng], 3), L.marker([user.address.geo.lat, user.address.geo.lng]).addTo(this.map)});
+
+    this.user.subscribe(user => {
+      this.map.setView([user.address.geo.lat, user.address.geo.lng], 3),
+      L.marker([user.address.geo.lat, user.address.geo.lng]).addTo(this.map)
+    });
+
     this.posts.subscribe(posts => {
       this.dataSource = new MatTableDataSource(posts);
       this.dataSource.paginator = this.paginator;
     });
   }
+
   toggleEdit(): void {
     if(this.isNotEditable) {
       this.isNotEditable = false;
@@ -56,6 +66,11 @@ export class UserDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.isNotEditable = true;
     }
   }
+
+  onSubmit(): void {
+    this.snackBar.open('User updated', 'close', {duration: 2000});
+  }
+
   private initMap(): void {
     this.map = L.map('map', {
       center: [ 39.8282, -98.5795 ],
