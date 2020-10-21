@@ -62,3 +62,9 @@ mat-list-option:hover, .active-link {
 #map {
   height: 100%;
 }
+mat-label {
+    color: #60CEE6;
+}
+::ng-deep .mat-form-field-outline-thick {
+    color: #E67860!important;
+}

@@ -11,60 +11,60 @@
                     <div class="column">
                         <mat-form-field appearance="outline">
                             <mat-label>Name</mat-label>
-                            <input matInput [disabled]="isEditable" name="name" type="text" [(ngModel)]="user.name">
+                            <input matInput [disabled]="isNotEditable" name="name" type="text" [(ngModel)]="user.name">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Username</mat-label>
-                            <input matInput [disabled]="isEditable" name="username" type="text" [(ngModel)]="user.username">
+                            <input matInput [disabled]="isNotEditable" name="username" type="text" [(ngModel)]="user.username">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input matInput [disabled]="isEditable" name="email" type="email" [(ngModel)]="user.email">
+                            <input matInput [disabled]="isNotEditable" name="email" type="email" [(ngModel)]="user.email">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Company Name</mat-label>
-                            <input matInput [disabled]="isEditable" name="company.name" type="text" [(ngModel)]="user.company.name">
+                            <input matInput [disabled]="isNotEditable" name="company.name" type="text" [(ngModel)]="user.company.name">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Company Catchphrase</mat-label>
-                            <input matInput [disabled]="isEditable" name="company.catchPhrase" type="text" [(ngModel)]="user.company.catchPhrase">
+                            <input matInput [disabled]="isNotEditable" name="company.catchPhrase" type="text" [(ngModel)]="user.company.catchPhrase">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Company BS</mat-label>
-                            <input matInput [disabled]="isEditable" name="company.bs" type="text" [(ngModel)]="user.company.bs">
+                            <input matInput [disabled]="isNotEditable" name="company.bs" type="text" [(ngModel)]="user.company.bs">
                         </mat-form-field>
                     </div>
                     <div class="column">
                         <mat-form-field appearance="outline">
                             <mat-label>Street</mat-label>
-                            <input matInput [disabled]="isEditable" name="street" type="text" [(ngModel)]="user.address.street">
+                            <input matInput [disabled]="isNotEditable" name="street" type="text" [(ngModel)]="user.address.street">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Suite</mat-label>
-                            <input matInput [disabled]="isEditable" name="suite" type="text" [(ngModel)]="user.address.suite">
+                            <input matInput [disabled]="isNotEditable" name="suite" type="text" [(ngModel)]="user.address.suite">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>City</mat-label>
-                            <input matInput [disabled]="isEditable" name="city" type="text" [(ngModel)]="user.address.city">
+                            <input matInput [disabled]="isNotEditable" name="city" type="text" [(ngModel)]="user.address.city">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Zipcode</mat-label>
-                            <input matInput [disabled]="isEditable" name="zipcode" type="text" [(ngModel)]="user.address.zipcode">
+                            <input matInput [disabled]="isNotEditable" name="zipcode" type="text" [(ngModel)]="user.address.zipcode">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Phone</mat-label>
-                            <input matInput [disabled]="isEditable" name="phone" type="tel" [(ngModel)]="user.phone">
+                            <input matInput [disabled]="isNotEditable" name="phone" type="tel" [(ngModel)]="user.phone">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Website</mat-label>
-                            <input matInput [disabled]="isEditable" name="website" type="text" [(ngModel)]="user.website">
+                            <input matInput [disabled]="isNotEditable" name="website" type="text" [(ngModel)]="user.website">
                         </mat-form-field>
                     </div>
                 </mat-card-content>
                 <mat-card-content class="buttons">
                     <button class="back-button" mat-raised-button routerLink=''>Back</button>
                     <button class="edit-button" mat-button (click)="toggleEdit()">Edit</button>
-                    <button class="save-button" mat-button [disabled]="!isEditable">Save</button>
+                    <button class="save-button" mat-button [disabled]="!isNotEditable">Save</button>
                 </mat-card-content>
             </mat-card>
         </form>
@@ -75,3 +75,18 @@
         </div>
     </div>
 </div>
+<mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+        <mat-cell *matCellDef="let post"> {{post.title}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="body">
+        <mat-header-cell *matHeaderCellDef> Body </mat-header-cell>
+        <mat-cell *matCellDef="let post"> {{post.body}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
