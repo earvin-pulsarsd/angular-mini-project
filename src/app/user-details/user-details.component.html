@@ -1,7 +1,7 @@
 <div class="flex-container">
     <div class="user-list">
         <mat-selection-list *ngIf="users | async as users" [multiple]="false">
-            <mat-list-option *ngFor="let user of users" routerLink='/user/{{user.id}}' (click)="updateForm(user.id)">{{user.name}}</mat-list-option>
+            <mat-list-option *ngFor="let user of users" routerLink='/user/{{user.id}}' routerLinkActive="active-link" (click)="updateForm(user.id)">{{user.name}}</mat-list-option>
         </mat-selection-list>
     </div>
     <div *ngIf="user | async as user" class="user-form">

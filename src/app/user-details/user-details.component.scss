@@ -40,7 +40,7 @@ button {
 .back-button:hover {
     background-color: #489BAC;
 }
-mat-list-option:hover, mat-list-option:focus {
+mat-list-option:hover, .active-link {
     color: white;
     background-color: #E67860;
 }

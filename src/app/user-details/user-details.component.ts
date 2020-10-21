@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import * as L from 'leaflet';
   templateUrl: './user-details.component.html',
   styleUrls: ['./user-details.component.scss']
 })
-export class UserDetailsComponent implements OnInit, AfterViewInit {
+export class UserDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isEditable: boolean = true;
   id: number;
@@ -35,13 +35,16 @@ export class UserDetailsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.users = this.userService.users$;
-    this.user = this.userService.getUser(this.id);
-    this.initMap();
   }
   ngAfterViewInit(): void {
+    this.initMap();
+    this.updateForm(this.id);
+  }
+  ngOnDestroy(): void {
   }
   updateForm(id: number): void {
     this.user = this.userService.getUser(id);
+    this.user.subscribe(user => {this.map.setView([user.address.geo.lat, user.address.geo.lng], 3), L.marker([user.address.geo.lat, user.address.geo.lng]).addTo(this.map)});
   }
   toggleEdit(): void {
     this.isEditable = false;
