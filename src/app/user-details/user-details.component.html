@@ -1,4 +1,4 @@
-<div class="container">
+<div class="flex-container">
     <div class="user-list">
         <mat-selection-list *ngIf="users | async as users" [multiple]="false">
             <mat-list-option *ngFor="let user of users" routerLink='/user/{{user.id}}' (click)="updateForm(user.id)">{{user.name}}</mat-list-option>
@@ -6,67 +6,72 @@
     </div>
     <div *ngIf="user | async as user" class="user-form">
         <form #userForm="ngForm">
-            <mat-card>
+            <mat-card class="user-details column">
                 <mat-card-content class="row">
                     <div class="column">
                         <mat-form-field appearance="outline">
                             <mat-label>Name</mat-label>
-                            <input matInput name="name" type="text" [(ngModel)]="user.name">
+                            <input matInput [disabled]="isEditable" name="name" type="text" [(ngModel)]="user.name">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Username</mat-label>
-                            <input matInput name="username" type="text" [(ngModel)]="user.username">
+                            <input matInput [disabled]="isEditable" name="username" type="text" [(ngModel)]="user.username">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input matInput name="email" type="email" [(ngModel)]="user.email">
+                            <input matInput [disabled]="isEditable" name="email" type="email" [(ngModel)]="user.email">
                         </mat-form-field>
-                        <div ngModelGroup="company" fxLayout="column">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Company Name</mat-label>
-                                <input matInput name="name" type="text" [(ngModel)]="user.company.name">
-                            </mat-form-field>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Company Catchphrase</mat-label>
-                                <input matInput name="catchPhrase" type="text" [(ngModel)]="user.company.catchPhrase">
-                            </mat-form-field>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Company BS</mat-label>
-                                <input matInput name="bs" type="text" [(ngModel)]="user.company.bs">
-                            </mat-form-field>
-                        </div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Company Name</mat-label>
+                            <input matInput [disabled]="isEditable" name="company.name" type="text" [(ngModel)]="user.company.name">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Company Catchphrase</mat-label>
+                            <input matInput [disabled]="isEditable" name="company.catchPhrase" type="text" [(ngModel)]="user.company.catchPhrase">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Company BS</mat-label>
+                            <input matInput [disabled]="isEditable" name="company.bs" type="text" [(ngModel)]="user.company.bs">
+                        </mat-form-field>
                     </div>
                     <div class="column">
-                        <div ngModelGroup="address" fxLayout="column">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Street</mat-label>
-                                <input matInput name="street" type="text" [(ngModel)]="user.address.street">
-                            </mat-form-field>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Suite</mat-label>
-                                <input matInput name="suite" type="text" [(ngModel)]="user.address.suite">
-                            </mat-form-field>
-                            <mat-form-field appearance="outline">
-                                <mat-label>City</mat-label>
-                                <input matInput name="city" type="text" [(ngModel)]="user.address.city">
-                            </mat-form-field>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Zipcode</mat-label>
-                                <input matInput name="zipcode" type="text" [(ngModel)]="user.address.zipcode">
-                            </mat-form-field>
-                            <ngui-map zoom="4" center="user.address.geo.lat, user.address.geo.lng" ></ngui-map>
-                        </div>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Street</mat-label>
+                            <input matInput [disabled]="isEditable" name="street" type="text" [(ngModel)]="user.address.street">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Suite</mat-label>
+                            <input matInput [disabled]="isEditable" name="suite" type="text" [(ngModel)]="user.address.suite">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>City</mat-label>
+                            <input matInput [disabled]="isEditable" name="city" type="text" [(ngModel)]="user.address.city">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Zipcode</mat-label>
+                            <input matInput [disabled]="isEditable" name="zipcode" type="text" [(ngModel)]="user.address.zipcode">
+                        </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Phone</mat-label>
-                            <input matInput name="phone" type="tel" [(ngModel)]="user.phone">
+                            <input matInput [disabled]="isEditable" name="phone" type="tel" [(ngModel)]="user.phone">
                         </mat-form-field>
                         <mat-form-field appearance="outline">
                             <mat-label>Website</mat-label>
-                            <input matInput name="website" type="text" [(ngModel)]="user.website">
+                            <input matInput [disabled]="isEditable" name="website" type="text" [(ngModel)]="user.website">
                         </mat-form-field>
                     </div>
                 </mat-card-content>
+                <mat-card-content class="buttons">
+                    <button class="back-button" mat-raised-button routerLink=''>Back</button>
+                    <button class="edit-button" mat-button (click)="toggleEdit()">Edit</button>
+                    <button class="save-button" mat-button>Save</button>
+                </mat-card-content>
             </mat-card>
         </form>
+    </div>
+    <div class="map-container">
+        <div class="map-frame">
+            <div id="map"></div>
+        </div>
     </div>
 </div>

@@ -1,25 +1,60 @@
 .column {
     display: flex;
     flex-direction: column;
-    margin: 5px;
+    padding: 10px;
+    width: 80%;
 }
 .row {
     display: flex;
 }
-.user-form, .user-list {
-    display: flex;
-    border: 1px solid black;
-    margin: 10px;
-}
 .user-form {
     width: 40%;
 }
-.container {
+.flex-container {
     display: flex;
     height: 100%;
     justify-content: center;
     align-items: center;
 }
-ngui-map {
-    margin: 10px;
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+button {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+}
+.back-button {
+    background-color: #60CEE6;
+    color: white;
+}
+.edit-button, .save-button {
+    background-color: #E67860;
+    color: white;
+}
+.edit-button:hover, .save-button:hover {
+    background-color: #AC5A48;
+}
+.back-button:hover {
+    background-color: #489BAC;
+}
+mat-list-option:hover, mat-list-option:focus {
+    color: white;
+    background-color: #E67860;
+}
+.map-container {
+    height: 40%;
+    width: 20%;
+}
+
+.map-frame {
+  border: 1px solid black;
+  height: 100%;
+  width: 100%;
+}
+
+#map {
+  height: 100%;
 }
