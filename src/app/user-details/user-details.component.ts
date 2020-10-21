@@ -4,6 +4,8 @@ import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
 import { User } from '../user';
 import * as L from 'leaflet';
+import { Post } from '../post';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-details',
@@ -16,6 +18,7 @@ export class UserDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   id: number;
   users: Observable<User[]>;
   user: Observable<User>;
+  posts: Observable<Post[]>;
   private map;
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
@@ -35,6 +38,7 @@ export class UserDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.id = +this.route.snapshot.paramMap.get('id');
     this.users = this.userService.users$;
+    this.posts = this.userService.posts$.pipe(map(posts => posts.filter(posts => posts.userId === this.id)));
   }
   ngAfterViewInit(): void {
     this.initMap();
@@ -47,6 +51,11 @@ export class UserDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.user.subscribe(user => {this.map.setView([user.address.geo.lat, user.address.geo.lng], 3), L.marker([user.address.geo.lat, user.address.geo.lng]).addTo(this.map)});
   }
   toggleEdit(): void {
-    this.isEditable = false;
+    if(this.isEditable) {
+      this.isEditable = false;
+    }
+    else {
+      this.isEditable = true;
+    }
   }
 }

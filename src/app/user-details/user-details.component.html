@@ -64,7 +64,7 @@
                 <mat-card-content class="buttons">
                     <button class="back-button" mat-raised-button routerLink=''>Back</button>
                     <button class="edit-button" mat-button (click)="toggleEdit()">Edit</button>
-                    <button class="save-button" mat-button>Save</button>
+                    <button class="save-button" mat-button [disabled]="!isEditable">Save</button>
                 </mat-card-content>
             </mat-card>
         </form>
