@@ -20,22 +20,23 @@ export class UserDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[] = ['title', 'body'];
   dataSource: MatTableDataSource<Post>;
 
-  isNotEditable: boolean = true;
+  isNotEditable: boolean;
   id: number;
   users: Observable<User[]>;
   user: Observable<User>;
   posts: Observable<Post[]>;
-  private map;
+  // private map;
 
   constructor(private userService: UserService, 
               private route: ActivatedRoute,
               private snackBar: MatSnackBar) { }
   
   ngOnInit(): void {
+    this.isNotEditable = true;
     this.id = +this.route.snapshot.paramMap.get('id');
     this.users = this.userService.users$;
     this.posts = this.userService.posts$.pipe(map(posts => posts.filter(posts => posts.userId === this.id)));
-    this.initMap();
+    // this.initMap();
     this.updateForm(this.id);
   }
   ngAfterViewInit(): void {
@@ -44,13 +45,14 @@ export class UserDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
   }
   updateForm(id: number): void {
+    this.isNotEditable = true;
     this.user = this.userService.getUser(id);
     this.posts = this.userService.posts$.pipe(map(posts => posts.filter(posts => posts.userId === id)));
 
-    this.user.subscribe(user => {
-      this.map.setView([user.address.geo.lat, user.address.geo.lng], 3),
-      L.marker([user.address.geo.lat, user.address.geo.lng]).addTo(this.map)
-    });
+    // this.user.subscribe(user => {
+    //   this.map.setView([user.address.geo.lat, user.address.geo.lng], 3),
+    //   L.marker([user.address.geo.lat, user.address.geo.lng]).addTo(this.map)
+    // });
 
     this.posts.subscribe(posts => {
       this.dataSource = new MatTableDataSource(posts);
@@ -67,20 +69,22 @@ export class UserDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onSubmit(): void {
-    this.snackBar.open('User updated', 'close', {duration: 2000});
+  onSubmit(user: User): void {
+    console.log(user);
+    this.snackBar.open(user.name + ' updated', 'close', {duration: 2000});
+    this.toggleEdit();
   }
 
-  private initMap(): void {
-    this.map = L.map('map', {
-      center: [ 39.8282, -98.5795 ],
-      zoom: 3
-    });
-    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    });
+  // private initMap(): void {
+  //   this.map = L.map('map', {
+  //     center: [ 39.8282, -98.5795 ],
+  //     zoom: 3
+  //   });
+  //   const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  //     maxZoom: 19,
+  //     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  //   });
   
-    tiles.addTo(this.map);
-  }
+  //   tiles.addTo(this.map);
+  // }
 }

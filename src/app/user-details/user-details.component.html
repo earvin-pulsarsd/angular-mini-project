@@ -1,106 +1,95 @@
-<div class="flex-container">
+<div class="container">
     <div class="user-list">
         <mat-selection-list *ngIf="users | async as users" [multiple]="false">
             <mat-list-option *ngFor="let user of users" routerLink='/user/{{user.id}}' routerLinkActive="active-link" (click)="updateForm(user.id)">{{user.name}}</mat-list-option>
         </mat-selection-list>
     </div>
-    <div *ngIf="user | async as user" class="user-form">
+    <div class="user-form" *ngIf="user | async as user">
         <form #userForm="ngForm">
-            <mat-card class="user-details column">
-                <mat-card-content class="row">
-                    <div class="column">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Name</mat-label>
-                            <input matInput required [disabled]="isNotEditable" #name="ngModel" name="name" type="text" [(ngModel)]="user.name">
-                            <mat-error *ngIf="name.errors && (name.touched || name.invalid)">
-                                <mat-error *ngIf="name.errors.required">name is required</mat-error>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Username</mat-label>
-                            <input matInput [disabled]="isNotEditable" name="username" type="text" [(ngModel)]="user.username">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Email</mat-label>
-                            <input matInput required email #email="ngModel" [disabled]="isNotEditable" name="email" type="email" [(ngModel)]="user.email">
-                            <mat-error *ngIf="email.errors && (email.touched || email.invalid)">
-                                <mat-error *ngIf="email.errors.required">email is required</mat-error>
-                                <mat-error *ngIf="email.errors.email">email is invalid</mat-error>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Company Name</mat-label>
-                            <input matInput [disabled]="isNotEditable" name="company.name" type="text" [(ngModel)]="user.company.name">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Company Catchphrase</mat-label>
-                            <input matInput [disabled]="isNotEditable" name="company.catchPhrase" type="text" [(ngModel)]="user.company.catchPhrase">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Company BS</mat-label>
-                            <input matInput [disabled]="isNotEditable" name="company.bs" type="text" [(ngModel)]="user.company.bs">
-                        </mat-form-field>
-                    </div>
-                    <div class="column">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Street</mat-label>
-                            <input matInput [disabled]="isNotEditable" name="street" type="text" [(ngModel)]="user.address.street">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Suite</mat-label>
-                            <input matInput [disabled]="isNotEditable" name="suite" type="text" [(ngModel)]="user.address.suite">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>City</mat-label>
-                            <input matInput required #cityAddress="ngModel" [disabled]="isNotEditable" name="city" type="text" [(ngModel)]="user.address.city">
-                            <mat-error *ngIf="cityAddress.errors && (cityAddress.touched || cityAddress.invalid)">
-                                <mat-error *ngIf="cityAddress.errors.required">city address is required</mat-error>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Zipcode</mat-label>
-                            <input matInput [disabled]="isNotEditable" name="zipcode" type="text" [(ngModel)]="user.address.zipcode">
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Phone</mat-label>
-                            <input matInput required minlength="10" #phone="ngModel" [disabled]="isNotEditable" name="phone" type="tel" [(ngModel)]="user.phone">
-                            <mat-error *ngIf="phone.errors && (phone.touched || phone.invalid)">
-                                <mat-error *ngIf="phone.errors.required">phone number is required</mat-error>
-                                <mat-error *ngIf="phone.errors.minlength">phone number must be at least 10 digits</mat-error>
-                            </mat-error>
-                        </mat-form-field>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Website</mat-label>
-                            <input matInput [disabled]="isNotEditable" name="website" type="text" [(ngModel)]="user.website">
-                        </mat-form-field>
-                    </div>
-                </mat-card-content>
-                <mat-card-content class="buttons">
-                    <button class="back-button" mat-raised-button routerLink=''>Back</button>
-                    <button class="edit-button" mat-button (click)="toggleEdit()">Edit</button>
-                    <button class="save-button" mat-button (click)="onSubmit()" [disabled]="!userForm.valid" type="submit">Save</button>
-                </mat-card-content>
-            </mat-card>
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput required [disabled]="isNotEditable" #name="ngModel" name="name" type="text" [(ngModel)]="user.name">
+                <mat-error *ngIf="name.errors && (name.touched || name.invalid)">
+                    <mat-error *ngIf="name.errors.required">name is required</mat-error>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input matInput [disabled]="isNotEditable" name="username" type="text" [(ngModel)]="user.username">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput required email #email="ngModel" [disabled]="isNotEditable" name="email" type="email" [(ngModel)]="user.email">
+                <mat-error *ngIf="email.errors && (email.touched || email.invalid)">
+                    <mat-error *ngIf="email.errors.required">email is required</mat-error>
+                    <mat-error *ngIf="email.errors.email">email is invalid</mat-error>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Company Name</mat-label>
+                <input matInput [disabled]="isNotEditable" name="company.name" type="text" [(ngModel)]="user.company.name">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Company Catchphrase</mat-label>
+                <input matInput [disabled]="isNotEditable" name="company.catchPhrase" type="text" [(ngModel)]="user.company.catchPhrase">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Company BS</mat-label>
+                <input matInput [disabled]="isNotEditable" name="company.bs" type="text" [(ngModel)]="user.company.bs">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Street</mat-label>
+                <input matInput [disabled]="isNotEditable" name="street" type="text" [(ngModel)]="user.address.street">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Suite</mat-label>
+                <input matInput [disabled]="isNotEditable" name="suite" type="text" [(ngModel)]="user.address.suite">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>City</mat-label>
+                <input matInput required #cityAddress="ngModel" [disabled]="isNotEditable" name="city" type="text" [(ngModel)]="user.address.city">
+                <mat-error *ngIf="cityAddress.errors && (cityAddress.touched || cityAddress.invalid)">
+                    <mat-error *ngIf="cityAddress.errors.required">city address is required</mat-error>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Zipcode</mat-label>
+                <input matInput [disabled]="isNotEditable" name="zipcode" type="text" [(ngModel)]="user.address.zipcode">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Phone</mat-label>
+                <input matInput required minlength="10" #phone="ngModel" [disabled]="isNotEditable" name="phone" type="tel" [(ngModel)]="user.phone">
+                <mat-error *ngIf="phone.errors && (phone.touched || phone.invalid)">
+                    <mat-error *ngIf="phone.errors.required">phone number is required</mat-error>
+                    <mat-error *ngIf="phone.errors.minlength">phone number must be at least 10 digits</mat-error>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Website</mat-label>
+                <input matInput [disabled]="isNotEditable" name="website" type="text" [(ngModel)]="user.website">
+            </mat-form-field>
+            <div class="form-buttons">
+                <button class="back-button" mat-raised-button routerLink=''>Back</button>
+                <button class="edit-button" mat-button (click)="toggleEdit()">Edit</button>
+                <button class="save-button" mat-button (click)="onSubmit(userForm.value)" [disabled]="!userForm.valid" type="submit">Save</button>
+            </div>
         </form>
     </div>
-    <div class="map-container">
-        <div class="map-frame">
-            <div id="map"></div>
-        </div>
+    <div class="user-posts">
+        <mat-table [dataSource]="dataSource">
+            <ng-container matColumnDef="title">
+                <mat-header-cell *matHeaderCellDef>Post Title</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post.title}} </mat-cell>
+            </ng-container>
+            
+            <ng-container matColumnDef="body">
+                <mat-header-cell *matHeaderCellDef>Body</mat-header-cell>
+                <mat-cell *matCellDef="let post"> {{post.body}} </mat-cell>
+            </ng-container>
+        
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
     </div>
 </div>
-<mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="title">
-        <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
-        <mat-cell *matCellDef="let post"> {{post.title}} </mat-cell>
-    </ng-container>
-    
-    <ng-container matColumnDef="body">
-        <mat-header-cell *matHeaderCellDef> Body </mat-header-cell>
-        <mat-cell *matCellDef="let post"> {{post.body}} </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
-<mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
